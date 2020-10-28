@@ -11,15 +11,15 @@ from Crypto.Hash import HMAC
 from Crypto.Hash import SHA256
 import struct
 
-MCC = '268'
-MNC = '006'
+MCC = '123'
+MNC = '001'
 NAF_HOST = 'xcap.ims.mnc' + MNC + '.mcc' + MCC + '.pub.3gppnetwork.org'
 BSF_HOST = 'bsf.mnc' + MNC + '.mcc' + MCC + '.pub.3gppnetwork.org'
 
-KEYLOG_PATH = '/home/fabricio/ssl-keys.log' 
+KEYLOG_PATH = '/home/user/ssl-keys.log' 
 
-DEFAULT_IMSI = "268064901000504"
-DEFAULT_MSISDN = "351964900562"
+DEFAULT_IMSI = "123001000000000"
+DEFAULT_MSISDN = "123456789012"
 DEFAULT_IMEI = "1234567890123456"
 
 tls_cipher_suite = {}
