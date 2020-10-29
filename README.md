@@ -1,5 +1,5 @@
-# GBA_ME
-UE GBA_ME Emulator
+# Ut GBA_ME UE Emulator Application
+
 
 This application implements a simple UE Ut emulator to retrieve the current supplementary services information of a given IMSI/MSISDN from the HSS.
 
@@ -10,7 +10,18 @@ This application implements this mechanism.
 
 This is a non-trivial procedure, and to fully understand the flows, reading (at least) 3GPP 33.220 and 3GPP 24.109 is a must!
 
-AKA procedure is needed, so once again, o modem allowing such procedures is needed.
+The basic flow is a 4 messages flow.
+The first step is to initiate the bootstrapping with the XCAP/NAS server:
+
+<p align="center"><img src="bootstrapping_initiation.png" width="30%"></p>
+
+The second and third step is done with the BSF server:
+
+<p align="center"><img src="bootstrapping_procedures.png" width="40%"></p>
+
+And the final step is to get the application data set from the XCAP/NAS:
+
+<p align="center"><img src="bootstrapping_usage.png" width="45%"></p>
 
 The application is written in python3, and allows a single procedure running sequentially.
 The application can be changed easily to allow more advanced Ut operations.
@@ -25,7 +36,17 @@ The following items can be defined:
 - HTTPS Cipher to use
 - HTTPS certification validation 
 
-The protocol identifier is derived from the value of the cipher suite in use.
+There are default variables in the code where some of these settings can be defined (so that there is no need to put them in options in the cli).
+
+Starting from python 3.8 the SSLContext.keylog_filename is supported, this logs TLS keys to a keylog file, whenever key material is generated or received. As stated in https://docs.python.org/3/library/ssl.html the "keylog file is designed for debugging purposes only. The file format is specified by NSS and used by many traffic analyzers such as Wireshark. The log file is opened in append-only mode. Writes are synchronized between threads, but not between processes".
+
+
+# Additional Notes:
+
+- Client needs to run AKA procedure, so once again, a modem allowing such procedures is required.
+
+- The protocol identifier is derived from the value of the cipher suite in use.
+
 Values were extracted from:
 
 https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml
@@ -33,10 +54,10 @@ https://www.iana.org/assignments/tls-parameters/tls-parameters.xhtml
 https://testssl.sh/openssl-iana.mapping.html
 
 
-New cipher algoriths are always being added, so this information must be updated if there is a need to test a new cipher.
+- New cipher algoriths are always being added, so this information must be updated if there is a need to test a new cipher.
 
 
-These are the application options:
+# Application options:
 
 ```
 root@ubuntu# python3 gba_me.py -h
