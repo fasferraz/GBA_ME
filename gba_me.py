@@ -28,8 +28,8 @@ cipher_openssl_name = {}
 
 def get_key(val): 
     for key, value in cipher_openssl_name.items(): 
-        if val == value:          
-            return key 
+        if val == value:
+            return key
   
     return None
 
